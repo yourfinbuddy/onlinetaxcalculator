@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Bootstrap 4 Tabs with Form</title>
+  <!-- Add Bootstrap 4 CSS link here -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4">
+  <h1 style="text-align: center;">Online Tax Calculator</h1>
+  <hr>
+  <div class="row calculator" id="calculator">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Basic Info</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Exemptions/Deductions</a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <div class="tab-content" id="myTabContent">
+            <!-- Tab 1 content -->
+            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+              <form>
+                <div class="form-group">
+                  <label for="net">Total Salary</label>
+                  <input type="number" class="form-control" id="net" placeholder="" value="1000000" onchange="calcGross()" required>
+                </div>
+                <div class="form-group">
+                  <label for="basic">Basic Salary</label>
+                  <input type="number" class="form-control" id="basic" placeholder="" value="500000" required>
+                </div>
+                <div class="form-group">
+                  <label for="hra">HRA Alloted</label>
+                  <input type="number" class="form-control" id="hra" placeholder="" value="250000" required>
+                </div>
+               
+                <div class="form-group">
+                  <label for="empf">Employer's Contribution to PF</label>
+                  <input type="number" class="form-control" id="empf" onchange="calcGross()" placeholder="" required>
+                </div>
+                <div class="form-group">
+                  <label for="city">Working city</label>
+                <select id="city">
+                  <option value="">Select City</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Chennai">Chennai</option>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Kolkata">Kolkata</option>
+                  <option value="Other">Other</option>
+                  <!-- Add more options as needed -->
+                </select>
+                
+                </div>
+                <div class="form-group">
+                  <label for="gross">Gross Salary : </label>
+                <span id="grossSalary" style="color:red"></span>
+                <span style="color:grey;font-size:10px">(Total Salary - Employer's contibution to PF)</span>
+                </div>
+                
+                
+                <!-- Add more form fields as needed -->
+                <div class="d-flex justify-content-center">
+                  <button type="submit"  onclick="callContinue(event)" class="btn btn-primary">Continue</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Tab 2 content -->
+            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+              <form>
+                <h3>Exemptions</h3>
+
+                <div class="form-group">
+                  <label for="houserent">House Rent/monthly(HRA - Section 10(13A))</label>
+                  <input type="number" class="form-control" id="houserent" value="10000" placeholder="Rent paid per month">
+                </div>
+                <div class="form-group">
+                  <label for="children">Children Allowance(Section 10(14 ii))</label>
+                  <input type="number" class="form-control" id="children" placeholder="education + hostel - max 4800/child">
+                </div>
+                <div class="form-group">
+                  <label for="lta">LTA(Section 10(5))</label>
+                  <input type="number" class="form-control" id="lta" placeholder="">
+                </div>
+                <div class="form-group">
+                  <label for="gratuity">Gratuity(Section 10(10))</label>
+                  <input type="number" class="form-control" id="gratuity" placeholder="max limit 20,00,000">
+                </div>
+                <div class="form-group">
+                  <label for="leaveencash">Leave Encashment(Section 10(10AA))</label>
+                  <input type="number" class="form-control" id="leaveencash" placeholder="">
+                </div>
+                
+                <h3>Deductions</h3>
+                <div class="form-group">
+                  <label for="standard">Standard Deduction</label>
+                  <input type="number" class="form-control" value="50000" id="standard" disabled>
+                </div>
+                <div class="form-group">
+                  <label for="profTax">Professional Tax</label>
+                  <input type="number" class="form-control" id="profTax" placeholder="max limit 2500">
+                </div>
+                <div class="form-group">
+                  <label for="homeLoan">Home Loan Interest(Section 24(b))</label>
+                  <span style="font-size:10px;color:grey">Note : For new regime only on let-out</span>
+                </br>
+                <div class="col-12 d-flex">
+                  <input type="radio" id="selfhome" name="homeloan" value="Self Occupied">
+                  <label style="margin-left:5px;margin-top:7px" for="html">Self Occupied</label><br>
+                  <input style="margin-left:20px" type="radio" id="letouthome" name="homeloan" value="Let-Out">
+                  <label style="margin-left:5px;margin-top:7px" for="css">Let-Out</label><br>
+                </div> 
+                <input type="number" class="form-control" id="homeLoan" placeholder="max limit 2,00,000">
+
+              </div>
+              <div class="form-group">
+                <label for="eightyc">Investments u/s (Section 80C)</label>
+                <input type="number" class="form-control" id="eightyc" placeholder="max limit 1,50,000">
+              </div>
+              <div class="form-group">
+                <label for="eightyccdb">Investments in NPS u/s (Section 80CCD(1b))</label>
+                <input type="number" class="form-control" id="eightyccdb" placeholder="max limit 50,000">
+              </div>
+              <div class="form-group">
+                <label for="eightyccd2">Employer's contribution to NPS (Section 80CCD(II))</label>
+                <input type="number" class="form-control" id="eightyccd2" placeholder="max limit 10% of Basic">
+              </div>
+              <div class="form-group">
+                <label for="medical">Medical Insurance Premium (Section 80D)</label>
+                <input type="number" class="form-control" id="medical" placeholder="max limit 25k or 50k(if parent's above 60yrs)">
+              </div>
+              <div class="form-group">
+                <label for="education">Education Loan (Section 80E)</label>
+                <input type="number" class="form-control" id="education" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="savings">Interest On Savings Account (Section 80TTA)</label>
+                <input type="number" class="form-control" id="savings" placeholder="max limit 10,000">
+              </div>
+                <!-- Add more form fields as needed -->
+               <div class="d-flex justify-content-center">
+                <button type="submit" onclick="calculateTax(event)" class="btn btn-primary">Calculate</button>
+               </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row taxdata">
+    <div class="col-md-6 col-12">
+     <div><h2>Old Tax Regime</h2></div>
+      <h4>Gross Salary        : <span style="color:grey" id="oldgross"></span> </h4>
+      <h4>Total Exemption     : <span style="color:grey" id="oldexemption"></span></h4>
+      <h4>Total Deduction     : <span style="color:grey" id="olddeduction"></span></h4>
+      <u><h4>Net Taxable Income : <span style="color:grey" id="nettaxable"></span></h4></u>
+
+     <h3>Total Tax Liability : <span id="oldtotaltax" style="color:red"></span>
+    <span style="color:grey;font-size:12px;">(Including 4% Health and Education Cess on total tax)</span></h3>
+    </div>
+    <div class="col-md-6 col-12">
+     <div><h2>New Tax Regime</h2></div>
+     <h4>Gross Salary        : <span style="color:grey" id="newgross"></span> </h4>
+     <h4>Total Exemption     : <span style="color:grey" id="newexemption"></span></h4>
+     <h4>Total Deduction     : <span style="color:grey" id="newdeduction"></span></h4>
+     <u><h4>Net Taxable Income : <span style="color:grey" id="newnettaxable"></span></h4></u>
+
+    <h3>Total Tax Liability : <span id="newtotaltax" style="color:red"></span>
+      <span style="color:grey;font-size:12px;">(Including 4% Health and Education Cess on total tax)</span></h3>
+    </div>
+  </div>
+</div>
+
+<!-- Add Bootstrap 4 JS links here -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$("#tab2-tab").prop('disabled', true);
+$(".taxdata").hide();
+function calcGross(){
+ let value=$("#net").val()-$("#empf").val();
+  $("#grossSalary").html(value);
+}
+
+function callContinue(e){
+  e.preventDefault();
+  // $('#tab2-tab').attr('aria-selected', true);
+ let net=$("#net").val();
+ let basic=$("#basic").val();
+ let hra=$("#hra").val();
+ let city=$("#city").val();
+ if(net===""||basic===""||hra===""){
+  alert("Please enter values in fields!!");
+ }
+ else if(city===""){
+  alert("Please select working city!");
+ }
+ else{
+  $("#tab2-tab").prop('disabled', false);
+ }
+ if(!( $("#tab2-tab").prop('disabled')))
+  $("#tab2-tab").tab('show');
+}
+
+
+function calculateTax(e){
+  e.preventDefault()
+ let basic=$("#basic").val();
+ let hra=$("#hra").val();
+ let rent=$("#houserent").val();
+ let children=$("#children").val();
+ let lta=$("#lta").val();
+ let gratuity=$("#gratuity").val();
+ let leaveencash=$("#leaveencash").val();
+ let standard=50000;
+ let profTax=$("#profTax").val();
+ let homeloanType=$('input[name="homeloan"]:checked').val();
+ let homeloan=$("#homeLoan").val();
+ let eightyc=$("#eightyc").val();
+ let eightyccdb=$("#eightyccdb").val();
+ let eightyccd2=$("#eightyccd2").val();
+ let medical=$("#medical").val();
+ let education=$("#education").val();
+ let savings=$("#savings").val();
+
+ let gross=$("#net").val()-$("#empf").val();
+
+
+ let hra1=(rent*12) - ((10/100)*basic);
+ let hra2;
+ if(city==="other")
+  hra2=(40/100)*basic;
+ else
+  hra2=(50/100)*basic;
+
+ let actualHra=hra<hra1?hra:(hra1<hra2?hra1:hra2);
+let taxableIncome=gross-actualHra-children-lta-gratuity-leaveencash;
+let netTaxableIncome=taxableIncome-standard-profTax-homeloan-eightyc-eightyccdb-eightyccd2-medical-education-savings;
+let newnetTaxableIncome=gross-gratuity-leaveencash-standard-eightyccd2;
+let newHomeloan=0;
+if(homeloanType==="Let-Out"){
+  newnetTaxableIncome=newnetTaxableIncome-homeloan;
+  newHomeloan=Number(homeloan);
+}
+let old=calOldTax(netTaxableIncome);
+old=old+(old*(4/100));
+$(".calculator").hide();
+$(".taxdata").show();
+$("#oldgross").html(gross);
+$("#oldexemption").html(Number(actualHra)+Number(children)+Number(lta)+Number(gratuity)+Number(leaveencash));
+$("#olddeduction").html(standard+Number(profTax)+Number(homeloan)+Number(eightyc)+Number(eightyccdb)+Number(eightyccd2)+Number(medical)+Number(education)+Number(savings));
+$("#nettaxable").html(netTaxableIncome);
+$("#oldtotaltax").html(old);
+
+let newtax=callNewTax(newnetTaxableIncome);
+newtax=newtax+(newtax*(4/100));
+
+$("#newgross").html(gross);
+$("#newexemption").html((gratuity+leaveencash)===""?0:(gratuity+leaveencash));
+$("#newdeduction").html(standard+eightyccd2+newHomeloan);
+$("#newnettaxable").html(newnetTaxableIncome);
+$("#newtotaltax").html(newtax);
+
+}
+
+function calOldTax(netTaxableIncome){
+  if(netTaxableIncome<=500000){
+    return 0;
+  }
+  else if(netTaxableIncome>500000 && netTaxableIncome<=1000000){
+    let netTax=12500;
+    netTax=netTax+(netTaxableIncome-500000)*20/100;
+    return netTax;
+  }
+  else if(netTaxableIncome>1000000){
+    let netTax=12500+100000;
+    netTax=netTax+(netTaxableIncome-1000000)*30/100;
+    return netTax;
+  }
+}
+
+
+function callNewTax(netTaxableIncome){
+  if(netTaxableIncome<=700000){
+    return 0;
+  }
+  else if(netTaxableIncome>700000 && netTaxableIncome<=900000){
+    let netTax=15000;
+    netTax=netTax+(netTaxableIncome-600000)*10/100;
+    return netTax;
+  }
+  else if(netTaxableIncome>900000 && netTaxableIncome<=1200000){
+    let netTax=15000+30000;
+    netTax=netTax+(netTaxableIncome-900000)*15/100;
+    return netTax;
+  }
+  else if(netTaxableIncome>1200000 && netTaxableIncome<=1500000){
+    let netTax=450000+45000;
+    netTax=netTax+(netTaxableIncome-1200000)*20/100;
+    return netTax;
+  }
+  else if(netTaxableIncome>1500000){
+    let netTax=90000+60000;
+    netTax=netTax+(netTaxableIncome-1500000)*30/100;
+    return netTax;
+  }
+}
+
+</script>
+</body>
+</html>
